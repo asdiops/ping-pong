@@ -6,8 +6,8 @@ window = display.set_mode((700, 500))
 clock = time.Clock()
 
 font = font.Font(None, 35)
-win_p1 = font.render('Player 1 win!', True, (0, 0, 0))
-win_p2 = font.render('Player 2 win!', True, (0, 0, 0))
+win_p1 = font.render('Player 1 win!', True, (250, 246, 14))
+win_p2 = font.render('Player 2 win!', True, (250, 246, 14))
 speed_x = 3
 speed_y = 3
 
@@ -57,6 +57,8 @@ while game:
     
     if finish != True:
         
+        window.fill((220, 232, 112))
+
         ball.rect.y += speed_y
         ball.rect.x += speed_x
         if sprite.collide_rect(player1, ball) or sprite.collide_rect(player2, ball):
@@ -68,9 +70,15 @@ while game:
         if ball.rect.x < 0:
             finish = True
             window.blit(win_p2, (300,240))
+            clock.tick(60)
+            display.update()
+        
+        if ball.rect.x > 640:
+            finish = True
+            window.blit(win_p1, (300,240))
+            clock.tick(60)
             display.update()
 
-        window.fill((220, 232, 112))
         player1.reset()
         player1.update()
         player2.reset()
